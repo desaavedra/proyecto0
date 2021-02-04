@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_restful import Api, Resource
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import UserMixin,LoginManager, login_user, current_user, logout_user
+from flask_login import UserMixin, LoginManager , login_user, current_user, logout_user
 import datetime
 from flask_cors import CORS
 app = Flask(__name__)
@@ -11,6 +11,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 CORS(app, resources={"*": {
     "origins":{"*","http://localhost:3000/editareventos"},
     }},
@@ -191,9 +194,6 @@ api.add_resource(RecursoRegistrarEventos, '/events')
 api.add_resource(RecursoUnEvento, '/events/<int:id_evento>')
 if __name__ == '__main__':
     app.secret_key = 'super secret key'
-    login_manager = LoginManager()
-    login_manager.init_app(app)
-    login_manager.login_view = 'login'
     @login_manager.user_loader
     def load_user(user_id):
         # since the user_id is just the primary key of our user table, use it in the query for the user

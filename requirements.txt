@@ -3,3 +3,4 @@ flask-sqlalchemy
 flask-restful
 flask-marshmallow
 flask-login
+flask_cors
