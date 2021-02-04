@@ -194,10 +194,4 @@ api.add_resource(RecursoLogoutUsuarios, '/logout')
 api.add_resource(RecursoRegistrarEventos, '/events')
 api.add_resource(RecursoUnEvento, '/events/<int:id_evento>')
 if __name__ == '__main__':
-    app.secret_key = 'super secret key'
-    @login_manager.user_loader
-    def load_user(user_id):
-        # since the user_id is just the primary key of our user table, use it in the query for the user
-        return Usuario.query.get(int(user_id))
-
     app.run(debug=True)
