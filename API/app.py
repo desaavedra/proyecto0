@@ -25,7 +25,10 @@ CORS(app, resources={"*": {
     },
     supports_credentials= True
     )
-
+@login_manager.user_loader
+    def load_user(user_id):
+        # since the user_id is just the primary key of our user table, use it in the query for the user
+        return Usuario.query.get(int(user_id))
 class Usuario(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column( db.String(50) )
