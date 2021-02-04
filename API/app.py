@@ -7,6 +7,7 @@ from flask_login import UserMixin, LoginManager , login_user, current_user, logo
 import datetime
 from flask_cors import CORS
 app = Flask(__name__)
+app.secret_key = 'super secret key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
